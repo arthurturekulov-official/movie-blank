@@ -28,26 +28,49 @@ function App() {
   }
   
   return (
-    <>
-      <form onSubmit={handleSearchMovie}>
+    <div className="app-container">
+      <h1>Search Films</h1>
+      
+      <form onSubmit={handleSearchMovie} className="search-form">
         <input 
           type="text" 
           value={query} 
           onChange={(e) => setQuery(e.target.value)} 
-          placeholder="Найти фильм:"
+          placeholder="Введите название фильма..."
+          className="search-input"
         />
-        <button type="submit">Найти</button>
+        <button type="submit" className="search-button">
+          Найти
+        </button>
       </form>
 
-      <div>
+      <div className="movies-grid">
         {movies.map((movie) => (
-          <>
-            <h3 key={movie.imdbID}>{movie.Title}</h3>
-            <img src={movie.Poster} alt={movie.Title} />
-          </>
+          <div key={movie.imdbID} className="movie-card">
+            <div className="poster-container">
+              {movie.Poster !== "N/A" ? (
+                <img 
+                  src={movie.Poster} 
+                  alt={movie.Title} 
+                  className="movie-poster"
+                  onError={(e) => {
+                    e.target.style.display = "none";
+                  }}
+                />
+              ) : (
+                <span className="no-poster">🖼 Постер отсутствует</span>
+              )}
+            </div>
+
+            <div className="movie-info">
+              <h3 className="movie-title">{movie.Title}</h3>
+              <p className="movie-year">{movie.Year}</p>
+            </div>
+
+          </div>
         ))}
       </div>
-    </>
+    </div>
   )
 }
 

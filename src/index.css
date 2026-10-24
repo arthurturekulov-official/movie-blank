@@ -1,0 +1,99 @@
+.app-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.search-form {
+  margin-bottom: 20px;
+}
+
+.search-input {
+  padding: 10px;
+  font-size: 15px;
+  width: 300px;
+  margin-right: 10px;
+  border: 1px solid #8ef0f3;
+  border-radius: 5px;
+}
+
+.search-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #2fbfa2;
+  color: rgb(255, 255, 255);
+  border: none;
+  border-radius: 4px;
+  transition: background-color 0.4s;
+}
+
+.search-button:hover {
+  color: rgb(107, 106, 106);
+  background-color: #2fbfa27c;
+}
+
+.movies-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.movie-card {
+  cursor: pointer;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.movie-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.poster-container {
+  height: 300px;
+  background-color: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.movie-poster {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.no-poster {
+  color: #888;
+  font-size: 14px;
+  text-align: center;
+  padding: 10px;
+}
+
+.movie-info {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
+}
+
+.movie-title {
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  margin: 0 0 8px 0;
+}
+
+.movie-year {
+  color: #666;
+  font-size: 14px;
+  margin: 0;
+}
