@@ -1,8 +1,10 @@
 import { useState } from "react"
+import Loader from "./components/Loader"
 
 function App() {
   const [query, setQuery] = useState("")
   const [movies, setMovies] = useState([])
+  const [isLoad, setLoad] = useState(false)
 
   const handleSearchMovie = async (e) => {
     e.preventDefault() 
@@ -13,18 +15,25 @@ function App() {
     const url = `https://www.omdbapi.com/?apikey=${apiKey}&s=${query}`
 
     try {
+      setLoad(true)
       const res = await fetch(url)
       const data = await res.json()
 
       if (data.Response === "True") {
-        setMovies(data.Search)
+        setQuery("")
+        setTimeout(() => {
+          setMovies(data.Search)
+          setLoad(false)
+        }, 2000);
+        
       } else {
         setMovies([])
+        setLoad(false)
         console.log(data.Error)
       }
     } catch (err) {
       console.error("Ошибка запроса:", err)
-    }
+    } 
   }
   
   return (
@@ -43,6 +52,12 @@ function App() {
           Найти
         </button>
       </form>
+
+      {isLoad && 
+        <div className="loader-container">
+          <Loader/>
+        </div>
+      }
 
       <div className="movies-grid">
         {movies.map((movie) => (

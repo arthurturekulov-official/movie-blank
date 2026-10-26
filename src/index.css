@@ -97,3 +97,11 @@
   font-size: 14px;
   margin: 0;
 }
+
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 40px 0;
+}
