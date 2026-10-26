@@ -1,10 +1,12 @@
 import { useState } from "react"
 import Loader from "./components/Loader"
+import ErrorMessage from "./components/ErrorMessage"
 
 function App() {
   const [query, setQuery] = useState("")
   const [movies, setMovies] = useState([])
   const [isLoad, setLoad] = useState(false)
+  const [hasSearched, setHasSearched] = useState(false)
 
   const handleSearchMovie = async (e) => {
     e.preventDefault() 
@@ -16,18 +18,23 @@ function App() {
 
     try {
       setLoad(true)
+      setHasSearched(false)
+
       const res = await fetch(url)
       const data = await res.json()
 
       if (data.Response === "True") {
         setQuery("")
+        
         setTimeout(() => {
+          setHasSearched(false)
           setMovies(data.Search)
           setLoad(false)
-        }, 2000);
+        }, 1300);
         
       } else {
         setMovies([])
+        setHasSearched(true)
         setLoad(false)
         console.log(data.Error)
       }
@@ -52,12 +59,15 @@ function App() {
           Найти
         </button>
       </form>
+      
 
       {isLoad && 
         <div className="loader-container">
           <Loader/>
         </div>
       }
+      
+      {hasSearched && !isLoad && movies.length === 0 && <ErrorMessage/>}
 
       <div className="movies-grid">
         {movies.map((movie) => (
