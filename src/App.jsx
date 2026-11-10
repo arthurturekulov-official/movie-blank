@@ -1,12 +1,14 @@
 import { useState } from "react"
 import Loader from "./components/Loader"
 import ErrorMessage from "./components/ErrorMessage"
+import { MovieModal } from "./components/MovieModal"
 
 function App() {
   const [query, setQuery] = useState("")
   const [movies, setMovies] = useState([])
   const [isLoad, setLoad] = useState(false)
   const [hasSearched, setHasSearched] = useState(false)
+  const [selectMovie, setSelectMovie] = useState(null)
 
   const handleSearchMovie = async (e) => {
     e.preventDefault() 
@@ -42,6 +44,11 @@ function App() {
       console.error("Ошибка запроса:", err)
     } 
   }
+
+  const showMoreInfo = (idMovie) => {
+    setSelectMovie(idMovie)
+    
+  }
   
   return (
     <div className="app-container">
@@ -59,6 +66,13 @@ function App() {
           Найти
         </button>
       </form>
+
+      {selectMovie && (
+        <MovieModal 
+          imdbID={selectMovie} 
+          onClose={() => setSelectMovie(null)} 
+        />
+      )}
       
 
       {isLoad && 
@@ -72,7 +86,7 @@ function App() {
       <div className="movies-grid">
         {movies.map((movie) => (
           <div key={movie.imdbID} className="movie-card">
-            <div className="poster-container">
+            <div onClick={() => showMoreInfo(movie.imdbID)} className="poster-container">
               {movie.Poster !== "N/A" ? (
                 <img 
                   src={movie.Poster} 
